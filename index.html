@@ -67,8 +67,8 @@
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script> -->
     <style>
         div {
             text-align: center;
@@ -80,12 +80,12 @@
 
 
 <body>
-    <div id="loading">
+    <!-- <div id="loading">
         <img id="loading-image" src="images/Spinner.gif" alt="Loading..." />
-    </div>
+    </div> -->
 
-    <ins class="kakao_ad_area" style="display:none;" data-ad-unit="DAN-ptsdlpDjjs5gTthG" data-ad-width="320" data-ad-height="100"></ins>
-    <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+    <!-- <ins class="kakao_ad_area" style="display:none;" data-ad-unit="DAN-ptsdlpDjjs5gTthG" data-ad-width="320" data-ad-height="100"></ins> -->
+    <!-- <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script> -->
 
 
 
@@ -95,7 +95,8 @@
     </div>
 
 
-    <div p style="text-align:right" class="def_go">supported by Nerual Network</div>
+    <div>  <p style="text-align:middle" class="no_save"> We are following Privacy Act to protect personnal information. Photo will not be saved at all  </p> 
+  </div>
 
     <!-- <div class="mt-2 container d-flex justify-content-center ad-banner">
 
@@ -122,12 +123,12 @@
                 <div class="drag-text loc_junsuri">
                     <h3>&nbsp;</h3>
                 </div>
-                <h3 class="image-upload-text"><span>AI 판독을 위해 사진을 올려주세요</span></h3>
+                <h3 class="image-upload-text"><span>Upload Your Photo for Checking Nationality</span></h3>
             </div>
             <div class="file-upload-content">
                 <img class="file-upload-image" id='originimg' src="#" alt="your image">
                 <div class="image-title-wrap">
-                    <button type="button" onclick="removeUpload()" class="remove-image">사진 다시올리기 <span
+                    <button type="button" onclick="removeUpload()" class="remove-image"> Reload Photo <span
                             class="image-title"></span></button>
                 </div>
             </div>
@@ -147,7 +148,7 @@
 
             init().then(function() {
                 console.log("background func upload complete");
-                $('#loading').hide();
+                // $('#loading').hide();
             });
 
 
@@ -185,11 +186,11 @@
             $('.image-upload-wrap').removeClass('image-dropping');
         });
 
-        $.ajax({
-            method: "GET",
-            url: "https://9i1jhuewmj.execute-api.ap-northeast-2.amazonaws.com/test/transaction",
-            data: "jpgname=image.jpg"
-        })
+        // $.ajax({
+        //     method: "GET",
+        //     url: "https://9i1jhuewmj.execute-api.ap-northeast-2.amazonaws.com/test/transaction",
+        //     data: "jpgname=image.jpg"
+        // })
     </script>
 
 
@@ -207,19 +208,18 @@
         <div id="result-container" div style="text-align: center;"></div>
 
 
-        <ins class="kakao_ad_area" style="display:none;" data-ad-unit="DAN-qxll5a1y2UIW0BJK" data-ad-width="300" data-ad-height="250"></ins>
-        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        <!-- <ins class="kakao_ad_area" style="display:none;" data-ad-unit="DAN-qxll5a1y2UIW0BJK" data-ad-width="300" data-ad-height="250"></ins>
+        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script> -->
 
 
         <div>
             <br>
             <br>
             <br>
-            <img src="images/howtoUse.png" align="center" alt="howtoUse" class="howtoUse">
         </div>
 
         <p p style="text-align:center" class="sel_loc2">
-            </br>© DR_BUSSINESS 2020. All Rights Reserved.
+            </br>© DR_BUSSINESS 2021. All Rights Reserved.
             </br>DR_BUSSINESS@naver.com
         </p>
     </div>
@@ -231,7 +231,7 @@
 
 
 
-    <script data-ad-client="ca-pub-2876410299286576" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- <script data-ad-client="ca-pub-2876410299286576" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
 
 
 

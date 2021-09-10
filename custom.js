@@ -1,97 +1,97 @@
-var albumBucketName = 'ojingo';
-var bucketRegion = 'ap-northeast-2';
-var IdentityPoolId = 'ap-northeast-2:78dfddc3-85a3-464a-8a12-81eeb5a56ba5';
+// var albumBucketName = 'ojingo';
+// var bucketRegion = 'ap-northeast-2';
+// var IdentityPoolId = 'ap-northeast-2:78dfddc3-85a3-464a-8a12-81eeb5a56ba5';
 
 // # Display the images to be uploaded.
 
 
-AWS.config.update({
-    region: bucketRegion,
-    credentials: new AWS.CognitoIdentityCredentials({
-        IdentityPoolId: IdentityPoolId
-    })
-});
+// AWS.config.update({
+//     region: bucketRegion,
+//     credentials: new AWS.CognitoIdentityCredentials({
+//         IdentityPoolId: IdentityPoolId
+//     })
+// });
 
-var s3 = new AWS.S3({
-    apiVersion: '2006-03-01',
-    params: { Bucket: albumBucketName }
-});
+// var s3 = new AWS.S3({
+//     apiVersion: '2006-03-01',
+// //     params: { Bucket: albumBucketName }
+// // });
 
-function listAlbums() {
-    s3.listObjects({ Delimiter: '/' }, function(err, data) {
-        if (err) {
-            return alert('There was an error listing your albums: ' + err.message);
-        } else {
-            var albums = data.CommonPrefixes.map(function(commonPrefix) {
-                var prefix = commonPrefix.Prefix;
-                var albumName = decodeURIComponent(prefix.replace('/', ''));
-                return getHtml([
-                    '<li>',
-                    '<span onclick="deleteAlbum(\'' + albumName + '\')">X</span>',
-                    '<span onclick="viewAlbum(\'' + albumName + '\')">',
-                    albumName,
-                    '</span>',
-                    '</li>'
-                ]);
-            });
-            var message = albums.length ?
-                getHtml([
-                    '<p>Click on an album name to view it.</p>',
-                    '<p>Click on the X to delete the album.</p>'
-                ]) :
-                '<p>You do not have any albums. Please Create album.';
-            var htmlTemplate = [
-                '<h2>Albums</h2>',
-                message,
-                '<ul>',
-                getHtml(albums),
-                '</ul>',
-                '<button onclick="createAlbum(prompt(\'Enter Album Name:\'))">',
-                'Create New Album',
-                '</button>'
-            ]
-            document.getElementById('app').innerHTML = getHtml(htmlTemplate);
-        }
-    });
-}
+// function listAlbums() {
+//     s3.listObjects({ Delimiter: '/' }, function(err, data) {
+//         if (err) {
+//             return alert('There was an error listing your albums: ' + err.message);
+//         } else {
+//             var albums = data.CommonPrefixes.map(function(commonPrefix) {
+//                 var prefix = commonPrefix.Prefix;
+//                 var albumName = decodeURIComponent(prefix.replace('/', ''));
+//                 return getHtml([
+//                     '<li>',
+//                     '<span onclick="deleteAlbum(\'' + albumName + '\')">X</span>',
+//                     '<span onclick="viewAlbum(\'' + albumName + '\')">',
+//                     albumName,
+//                     '</span>',
+//                     '</li>'
+//                 ]);
+//             });
+//             var message = albums.length ?
+//                 getHtml([
+//                     '<p>Click on an album name to view it.</p>',
+//                     '<p>Click on the X to delete the album.</p>'
+//                 ]) :
+//                 '<p>You do not have any albums. Please Create album.';
+//             var htmlTemplate = [
+//                 '<h2>Albums</h2>',
+//                 message,
+//                 '<ul>',
+//                 getHtml(albums),
+//                 '</ul>',
+//                 '<button onclick="createAlbum(prompt(\'Enter Album Name:\'))">',
+//                 'Create New Album',
+//                 '</button>'
+//             ]
+//             document.getElementById('app').innerHTML = getHtml(htmlTemplate);
+//         }
+//     });
+// }
 
-function createAlbum(albumName) {
-    albumName = albumName.trim();
-    if (!albumName) {
-        return alert('Album names must contain at least one non-space character.');
-    }
-    if (albumName.indexOf('/') !== -1) {
-        return alert('Album names cannot contain slashes.');
-    }
-    var albumKey = encodeURIComponent(albumName) + '/';
-    s3.headObject({ Key: albumKey }, function(err, data) {
-        if (!err) {
-            return alert('Album already exists.');
-        }
-        if (err.code !== 'NotFound') {
-            return alert('There was an error creating your album: ' + err.message);
-        }
-        s3.putObject({ Key: albumKey }, function(err, data) {
-            if (err) {
-                return alert('There was an error creating your album: ' + err.message);
-            }
-            alert('Successfully created album.');
-            viewAlbum(albumName);
-        });
-    });
-}
+// function createAlbum(albumName) {
+//     albumName = albumName.trim();
+//     if (!albumName) {
+//         return alert('Album names must contain at least one non-space character.');
+//     }
+//     if (albumName.indexOf('/') !== -1) {
+//         return alert('Album names cannot contain slashes.');
+//     }
+//     var albumKey = encodeURIComponent(albumName) + '/';
+//     s3.headObject({ Key: albumKey }, function(err, data) {
+//         if (!err) {
+//             return alert('Album already exists.');
+//         }
+//         if (err.code !== 'NotFound') {
+//             return alert('There was an error creating your album: ' + err.message);
+//         }
+//         s3.putObject({ Key: albumKey }, function(err, data) {
+//             if (err) {
+//                 return alert('There was an error creating your album: ' + err.message);
+//             }
+//             alert('Successfully created album.');
+//             viewAlbum(albumName);
+//         });
+//     });
+// }
 
-function loadphoto(albumName) {
+// function loadphoto(albumName) {
 
-}
+// }
 async function init() {
 
-    const URL = "https://teachablemachine.withgoogle.com/models/27_Bu0tPM/";
+    // const URL = "https://teachablemachine.withgoogle.com/models/27_Bu0tPM/";
 
-    const modelURL = URL + "model.json";
-    const metadataURL = URL + "metadata.json";
-    model = await tmImage.load(modelURL, metadataURL);
-    maxPredictions = model.getTotalClasses();
+    // const modelURL = URL + "model.json";
+    // const metadataURL = URL + "metadata.json";
+    // model = await tmImage.load(modelURL, metadataURL);
+    // maxPredictions = model.getTotalClasses();
 
     // const prediction = await model.predict(image, false);
 
@@ -174,45 +174,60 @@ function addPhoto() {
     // var photoKey = albumPhotosKey + fileName;
     var photoKey = fileName;
     // alert(photoKey)
-    s3.upload({
-        Key: photoKey,
-        Body: file,
-        ACL: 'public-read'
-    }, function(err, data) {
-        if (err) {
-            return alert('There was an error uploading your photo: ', err.message);
-        }
-        console.log("image upload complete");
-        rstContainer.appendChild(document.createElement("div"));
+
+
+    // alert('Starting Nationality PaanDok');
+
+    var tgtimgURL = 'https://nationalitypaan.netlify.app/images/GGukBBong.gif';
+    // alert(tgtimgURL)
+    var imsi = show_image(tgtimgURL, 'result-img');
+    // alert(imsi)
+    var imsi_img = document.getElementById("result-container");
+    if (show_image(tgtimgURL, 'result-img')) {
+        // if (show_image(imsi_img, 'result-img')) {
+        // console.log('11')
+        predict()
+    }
 
 
 
-        $.ajax({
-            method: "GET",
-            url: "https://jxjqpnaky4.execute-api.ap-northeast-2.amazonaws.com/transaction/ojingo_paan",
-            data: "jpgname=" + fileName,
-            error: function(request, status, error) {
-                alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-            }
-        })
+    // s3.upload({
+    //     Key: photoKey,
+    //     Body: file,
+    //     ACL: 'public-read'
+    // }, function(err, data) {
+    //     if (err) {
+    //         return alert('There was an error uploading your photo: ', err.message);
+    //     }
+    //     console.log("image upload complete");
+    //     rstContainer.appendChild(document.createElement("div"));
 
-        alert(fileName + '에 대한 AI판독을 시작합니다');
+    //     // $.ajax({
+    //     //     method: "GET",
+    //     //     url: "https://jxjqpnaky4.execute-api.ap-northeast-2.amazonaws.com/transaction/ojingo_paan",
+    //     //     data: "jpgname=" + fileName,
+    //     //     error: function(request, status, error) {
+    //     //         alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+    //     //     }
+    //     // })
 
-        var tgtimgURL = 'https://ojingo-resized.s3.ap-northeast-2.amazonaws.com/' + fileName;
-        // alert(tgtimgURL)
-        // var imsi = show_image(tgtimgURL, 'result-img');
-        // alert(imsi)
-        var imsi_img = document.getElementById("result-container");
-        if (show_image(tgtimgURL, 'result-img')) {
-            // if (show_image(imsi_img, 'result-img')) {
-            // console.log('11')
-            predict()
-        }
-        // console.log('here come TOOP predict')
-        // predict();
+    //     alert('Starting Nationality PaanDok');
+
+    //     var tgtimgURL = 'https://nationalitypaan.netlify.app/images/ds-logo.png';
+    //     // alert(tgtimgURL)
+    //     var imsi = show_image(tgtimgURL, 'result-img');
+    //     // alert(imsi)
+    //     var imsi_img = document.getElementById("result-container");
+    //     if (show_image(tgtimgURL, 'result-img')) {
+    //         // if (show_image(imsi_img, 'result-img')) {
+    //         // console.log('11')
+    //         predict()
+    //     }
+    //     // console.log('here come TOOP predict')
+    //     // predict();
 
 
-    });
+    // });
     // Start GOOGLE AI
 
     // rstContainer2 = document.getElementById("result-container2");
@@ -238,46 +253,46 @@ async function predict() {
     console.log(image)
 
 
-    const prediction = await model.predict(image);
-    // const prediction = await model.predict(image,  false);
-    console.log(prediction)
-        // alert(prediction[0].probability.toFixed(2));
-    if (prediction[0].probability.toFixed(2) >= 0.85) {
-        // labelContainer.childNodes[0].innerHTML = "ttttt죄송합니다. 탈모입니다.";
-        var textnode = document.createTextNode("당신은 오징어가 아닙니다");
-        var textnode2 = document.createTextNode("멋짐 판독기를 이용해주세요");
-        // var textnode = document.createTextNode("1 in " + prediction[0].className + ": " + prediction[0].probability.toFixed(2) + "and1" + prediction[1].className + ": " + prediction[1].probability.toFixed(2));
-        document.getElementById('result-container').appendChild(linebreak0);
-        document.getElementById('result-container').appendChild(textnode);
-        document.getElementById('result-container').appendChild(linebreak);
-        document.getElementById('result-container').appendChild(textnode2);
+    // const prediction = await model.predict(image);
+    // // const prediction = await model.predict(image,  false);
+    // console.log(prediction)
+    //     // alert(prediction[0].probability.toFixed(2));
+    // if (prediction[0].probability.toFixed(2) >= 0.85) {
+    //     // labelContainer.childNodes[0].innerHTML = "ttttt죄송합니다. 탈모입니다.";
+    //     var textnode = document.createTextNode("당신은 오징어가 아닙니다");
+    //     var textnode2 = document.createTextNode("멋짐 판독기를 이용해주세요");
+    //     // var textnode = document.createTextNode("1 in " + prediction[0].className + ": " + prediction[0].probability.toFixed(2) + "and1" + prediction[1].className + ": " + prediction[1].probability.toFixed(2));
+    //     document.getElementById('result-container').appendChild(linebreak0);
+    //     document.getElementById('result-container').appendChild(textnode);
+    //     document.getElementById('result-container').appendChild(linebreak);
+    //     document.getElementById('result-container').appendChild(textnode2);
 
 
-    } else if (prediction[1].probability.toFixed(2) >= 0.35) {
-        // labelContainer.childNodes[0].innerHTML = "ttttt다행입니다. 탈모가아닙니다.";
-        var textnode = document.createTextNode("당신의 오징어 점수는");
-        var textnode2 = document.createTextNode("백점만점에 " + (prediction[1].probability * 100).toFixed(0) + "점 입니다.");
-        // var textnode = document.createTextNode("0 in " + prediction[0].className + ": " + prediction[0].probability.toFixed(2) + "andand" + prediction[1].className + ": " + prediction[1].probability.toFixed(2));
-        document.getElementById('result-container').appendChild(linebreak0);
-        document.getElementById('result-container').appendChild(textnode);
-        document.getElementById('result-container').appendChild(linebreak);
-        document.getElementById('result-container').appendChild(textnode2);
+    // } else if (prediction[1].probability.toFixed(2) >= 0.35) {
+    //     // labelContainer.childNodes[0].innerHTML = "ttttt다행입니다. 탈모가아닙니다.";
+    //     var textnode = document.createTextNode("당신의 오징어 점수는");
+    //     var textnode2 = document.createTextNode("백점만점에 " + (prediction[1].probability * 100).toFixed(0) + "점 입니다.");
+    //     // var textnode = document.createTextNode("0 in " + prediction[0].className + ": " + prediction[0].probability.toFixed(2) + "andand" + prediction[1].className + ": " + prediction[1].probability.toFixed(2));
+    //     document.getElementById('result-container').appendChild(linebreak0);
+    //     document.getElementById('result-container').appendChild(textnode);
+    //     document.getElementById('result-container').appendChild(linebreak);
+    //     document.getElementById('result-container').appendChild(textnode2);
 
 
-    } else if (prediction[0].probability.toFixed(2) == 0.38) {
-        // labelContainer.childNodes[0].innerHTML = "ttttt다행입니다. 탈모가아닙니다.";
-        var textnode = document.createTextNode("인터넷이 불안정합니다. 다시해주세요.");
-        // var textnode = document.createTextNode("3838 in " + prediction[0].className + ": " + prediction[0].probability.toFixed(2) + "and1" + prediction[1].className + ": " + prediction[1].probability.toFixed(2));
-        document.getElementById('result-container').appendChild(linebreak);
-        document.getElementById('result-container').appendChild(textnode);
+    // } else if (prediction[0].probability.toFixed(2) == 0.38) {
+    //     // labelContainer.childNodes[0].innerHTML = "ttttt다행입니다. 탈모가아닙니다.";
+    //     var textnode = document.createTextNode("인터넷이 불안정합니다. 다시해주세요.");
+    //     // var textnode = document.createTextNode("3838 in " + prediction[0].className + ": " + prediction[0].probability.toFixed(2) + "and1" + prediction[1].className + ": " + prediction[1].probability.toFixed(2));
+    //     document.getElementById('result-container').appendChild(linebreak);
+    //     document.getElementById('result-container').appendChild(textnode);
 
 
-    } else {
-        var textnode = document.createTextNode("사진이 부정확합니다. 다시해주세요.");
-        // var textnode = document.createTextNode("else in " + prediction[0].className + ": " + prediction[0].probability.toFixed(2) + "and2" + prediction[1].className + ": " + prediction[1].probability.toFixed(2));
-        document.getElementById('result-container').appendChild(linebreak);
-        document.getElementById('result-container').appendChild(textnode);
-    }
+    // } else {
+    //     var textnode = document.createTextNode("사진이 부정확합니다. 다시해주세요.");
+    //     // var textnode = document.createTextNode("else in " + prediction[0].className + ": " + prediction[0].probability.toFixed(2) + "and2" + prediction[1].className + ": " + prediction[1].probability.toFixed(2));
+    //     document.getElementById('result-container').appendChild(linebreak);
+    //     document.getElementById('result-container').appendChild(textnode);
+    // }
 
 
     console.log('predict end')
