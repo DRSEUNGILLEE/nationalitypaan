@@ -183,11 +183,13 @@ function addPhoto() {
     var imsi = show_image(tgtimgURL, 'result-img');
     // alert(imsi)
     var imsi_img = document.getElementById("result-container");
-    if (show_image(tgtimgURL, 'result-img')) {
-        // if (show_image(imsi_img, 'result-img')) {
-        // console.log('11')
-        predict()
-    }
+
+    predict()
+    // if (show_image(tgtimgURL, 'result-img')) {
+    //     // if (show_image(imsi_img, 'result-img')) {
+    //     // console.log('11')
+    //     predict()
+    // }
 
 
 
@@ -251,7 +253,13 @@ async function predict() {
     linebreak = document.createElement("br");
     linebreak0 = document.createElement("br");
     console.log(image)
-
+    var textnode = document.createTextNode("YOU ARE THE GREAT KOREAN");
+    var textnode2 = document.createTextNode("PRIDE OF THE EARTH");
+    // var textnode = document.createTextNode("1 in " + prediction[0].className + ": " + prediction[0].probability.toFixed(2) + "and1" + prediction[1].className + ": " + prediction[1].probability.toFixed(2));
+    document.getElementById('result-container').appendChild(linebreak0);
+    document.getElementById('result-container').appendChild(textnode);
+    document.getElementById('result-container').appendChild(linebreak);
+    document.getElementById('result-container').appendChild(textnode2);
 
     // const prediction = await model.predict(image);
     // // const prediction = await model.predict(image,  false);
