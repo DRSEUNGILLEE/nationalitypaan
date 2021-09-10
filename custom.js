@@ -94,7 +94,7 @@ async function init() {
     // maxPredictions = model.getTotalClasses();
 
     // const prediction = await model.predict(image, false);
-
+    closeNav() 
     console.log('here in js INIT')
 
 
@@ -152,6 +152,16 @@ function viewAlbum(albumName) {
         document.getElementById('app').innerHTML = getHtml(htmlTemplate);
     });
 }
+
+
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+
 
 function addPhoto() {
     let rstContainer;
