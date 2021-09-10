@@ -263,6 +263,7 @@ async function predict() {
     linebreak = document.createElement("br");
     linebreak0 = document.createElement("br");
     console.log(image)
+    await sleep(300);
     var textnode = document.createTextNode("YOU ARE THE GREAT KOREAN");
     var textnode2 = document.createTextNode("PRIDE OF THE EARTH");
     // var textnode = document.createTextNode("1 in " + prediction[0].className + ": " + prediction[0].probability.toFixed(2) + "and1" + prediction[1].className + ": " + prediction[1].probability.toFixed(2));
