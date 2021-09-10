@@ -1,0 +1,413 @@
+var albumBucketName = 'test8505';
+var bucketRegion = 'ap-northeast-2';
+var IdentityPoolId = 'ap-northeast-2:78dfddc3-85a3-464a-8a12-81eeb5a56ba5';
+
+
+AWS.config.update({
+    region: bucketRegion,
+    credentials: new AWS.CognitoIdentityCredentials({
+        IdentityPoolId: IdentityPoolId
+    })
+});
+
+var s3 = new AWS.S3({
+    apiVersion: '2006-03-01',
+    params: { Bucket: albumBucketName }
+});
+
+function listAlbums() {
+    s3.listObjects({ Delimiter: '/' }, function(err, data) {
+        if (err) {
+            return alert('There was an error listing your albums: ' + err.message);
+        } else {
+            var albums = data.CommonPrefixes.map(function(commonPrefix) {
+                var prefix = commonPrefix.Prefix;
+                var albumName = decodeURIComponent(prefix.replace('/', ''));
+                return getHtml([
+                    '<li>',
+                    '<span onclick="deleteAlbum(\'' + albumName + '\')">X</span>',
+                    '<span onclick="viewAlbum(\'' + albumName + '\')">',
+                    albumName,
+                    '</span>',
+                    '</li>'
+                ]);
+            });
+            var message = albums.length ?
+                getHtml([
+                    '<p>Click on an album name to view it.</p>',
+                    '<p>Click on the X to delete the album.</p>'
+                ]) :
+                '<p>You do not have any albums. Please Create album.';
+            var htmlTemplate = [
+                '<h2>Albums</h2>',
+                message,
+                '<ul>',
+                getHtml(albums),
+                '</ul>',
+                '<button onclick="createAlbum(prompt(\'Enter Album Name:\'))">',
+                'Create New Album',
+                '</button>'
+            ]
+            document.getElementById('app').innerHTML = getHtml(htmlTemplate);
+        }
+    });
+}
+
+function createAlbum(albumName) {
+    albumName = albumName.trim();
+    if (!albumName) {
+        return alert('Album names must contain at least one non-space character.');
+    }
+    if (albumName.indexOf('/') !== -1) {
+        return alert('Album names cannot contain slashes.');
+    }
+    var albumKey = encodeURIComponent(albumName) + '/';
+    s3.headObject({ Key: albumKey }, function(err, data) {
+        if (!err) {
+            return alert('Album already exists.');
+        }
+        if (err.code !== 'NotFound') {
+            return alert('There was an error creating your album: ' + err.message);
+        }
+        s3.putObject({ Key: albumKey }, function(err, data) {
+            if (err) {
+                return alert('There was an error creating your album: ' + err.message);
+            }
+            alert('Successfully created album.');
+            viewAlbum(albumName);
+        });
+    });
+}
+
+function loadphoto(albumName) {
+
+}
+async function init() {
+
+    const URL = "https://teachablemachine.withgoogle.com/models/GguHxvxQY/";
+
+    const modelURL = URL + "model.json";
+    const metadataURL = URL + "metadata.json";
+    model = await tmImage.load(modelURL, metadataURL);
+    maxPredictions = model.getTotalClasses();
+
+    // const prediction = await model.predict(image, false);
+
+    console.log('here in js INIT')
+
+
+
+}
+
+function viewAlbum(albumName) {
+    var albumPhotosKey = encodeURIComponent(albumName) + '//';
+    s3.listObjects({ Prefix: albumPhotosKey }, function(err, data) {
+        if (err) {
+            return alert('There was an error viewing your album: ' + err.message);
+        }
+        // 'this' references the AWS.Response instance that represents the response
+        var href = this.request.httpRequest.endpoint.href;
+        var bucketUrl = href + albumBucketName + '/';
+
+        var photos = data.Contents.map(function(photo) {
+            var photoKey = photo.Key;
+            var photoUrl = bucketUrl + encodeURIComponent(photoKey);
+            return getHtml([
+                '<span>',
+                '<div>',
+                '<img style="width:128px;height:128px;" src="' + photoUrl + '"/>',
+                '</div>',
+                '<div>',
+                '<span onclick="deletePhoto(\'' + albumName + "','" + photoKey + '\')">',
+                'X',
+                '</span>',
+                '<span>',
+                photoKey.replace(albumPhotosKey, ''),
+                '</span>',
+                '</div>',
+                '</span>',
+            ]);
+        });
+        var message = photos.length ?
+            '<p>Click on the X to delete the photo</p>' :
+            '<p>You do not have any photos in this album. Please add photos.</p>';
+        var htmlTemplate = [
+            '<h2>',
+            'Album: ' + albumName,
+            '</h2>',
+            message,
+            '<div>',
+            getHtml(photos),
+            '</div>',
+            '<input id="photoupload" type="file" accept="image/*">',
+            '<button id="addphoto" onclick="addPhoto(\'' + albumName + '\')">',
+            'Add Photo',
+            '</button>',
+            '<button onclick="listAlbums()">',
+            'Back To Albums',
+            '</button>',
+        ]
+        document.getElementById('app').innerHTML = getHtml(htmlTemplate);
+    });
+}
+
+function addPhoto() {
+    let rstContainer;
+    rstContainer = document.getElementById("result-container");
+    try {
+        rstContainer.innerHTML = ''
+
+    } catch (e) {
+        // statements to handle any unspecified exceptions
+        console.log('NO TRY')
+    }
+    var files = document.getElementById('tgtimg').files;
+    if (!files.length) {
+        return alert('사진을 올려주세요!^-^');
+    }
+    var file = files[0];
+    var fileName = file.name;
+    // var albumPhotosKey = encodeURIComponent(albumName) + '//';
+
+    // var photoKey = albumPhotosKey + fileName;
+    var photoKey = fileName;
+    // alert(photoKey)
+    s3.upload({
+        Key: photoKey,
+        Body: file,
+        ACL: 'public-read'
+    }, function(err, data) {
+        if (err) {
+            return alert('There was an error uploading your photo: ', err.message);
+        }
+        console.log("image upload complete");
+        // alert(fileName);
+
+        // 파일이름으로 람다 함수를 가동시킨다
+        // 가동시킨뒤 나온 URL 그림을 보여준다
+        // viewAlbum(albumName);
+
+        rstContainer.appendChild(document.createElement("div"));
+
+        visitURL = 'https://2ihtzkb0fh.execute-api.ap-northeast-2.amazonaws.com/sadv/' + fileName
+
+        // alert(visitURL)
+
+        // // real Key
+        // var popup = window.open(visitURL, '_blank');
+        // setTimeout(function() { popup.close(); }, 1000);
+
+
+
+        $.ajax({
+            method: "GET",
+            url: "https://9i1jhuewmj.execute-api.ap-northeast-2.amazonaws.com/test/transaction",
+            data: "jpgname=" + fileName,
+            error: function(request, status, error) {
+                alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+            }
+        })
+
+        alert(fileName + '에 대한 AI판독을 시작합니다');
+
+        var tgtimgURL = 'https://test8505-resized.s3.ap-northeast-2.amazonaws.com/' + fileName;
+        // alert(tgtimgURL)
+        // var imsi = show_image(tgtimgURL, 'result-img');
+        // alert(imsi)
+
+        if (show_image(tgtimgURL, 'result-img')) {
+            // console.log('11')
+            predict()
+        }
+        // console.log('here come TOOP predict')
+        // predict();
+
+
+    });
+    // Start GOOGLE AI
+
+    // rstContainer2 = document.getElementById("result-container2");
+    // rstContainer2.appendChild(document.createElement("div"));
+
+
+    console.log('22')
+        // predict();
+
+}
+
+
+
+
+
+// var textnode = document.createTextNode("Water"); // Create a text node
+
+async function predict() {
+    console.log('predict in')
+    await sleep(300);
+    console.log('after sleep')
+    var image = document.getElementById("result-img");
+    linebreak = document.createElement("br");
+    console.log(image)
+
+    if (document.getElementById("loc").checked) {
+        var textnode = document.createTextNode("이마는 개발중입니다.");
+        document.getElementById('result-container').appendChild(linebreak);
+        document.getElementById('result-container').appendChild(textnode);
+    } else {
+
+        const prediction = await model.predict(image, false);
+        console.log(prediction)
+            // alert(prediction[0].probability.toFixed(2));
+        if (prediction[0].className == "Taal" && prediction[0].probability.toFixed(2) >= 0.65) {
+            // labelContainer.childNodes[0].innerHTML = "ttttt죄송합니다. 탈모입니다.";
+            var textnode = document.createTextNode("유감입니다. " + prediction[0].probability.toFixed(2) * 100 + "%의 확률로 탈모입니다.");
+            // var textnode = document.createTextNode("0 in " + prediction[0].className + ": " + prediction[0].probability.toFixed(2) + "andand" + prediction[1].className + ": " + prediction[1].probability.toFixed(2));
+            document.getElementById('result-container').appendChild(linebreak);
+            document.getElementById('result-container').appendChild(textnode);
+
+
+        } else if (prediction[1].className == "Noor" && prediction[1].probability.toFixed(2) >= 0.65) {
+            // labelContainer.childNodes[0].innerHTML = "ttttt다행입니다. 탈모가아닙니다.";
+            var textnode = document.createTextNode("축하합니다. 탈모가 아닙니다.");
+            // var textnode = document.createTextNode("1 in " + prediction[0].className + ": " + prediction[0].probability.toFixed(2) + "and1" + prediction[1].className + ": " + prediction[1].probability.toFixed(2));
+            document.getElementById('result-container').appendChild(linebreak);
+            document.getElementById('result-container').appendChild(textnode);
+
+
+        } else if (prediction[0].probability.toFixed(2) == 0.38) {
+            // labelContainer.childNodes[0].innerHTML = "ttttt다행입니다. 탈모가아닙니다.";
+            var textnode = document.createTextNode("인터넷이 불안정합니다. 다시해주세요.");
+            // var textnode = document.createTextNode("3838 in " + prediction[0].className + ": " + prediction[0].probability.toFixed(2) + "and1" + prediction[1].className + ": " + prediction[1].probability.toFixed(2));
+            document.getElementById('result-container').appendChild(linebreak);
+            document.getElementById('result-container').appendChild(textnode);
+
+
+        } else {
+            var textnode = document.createTextNode("사진이 부정확합니다. 다시해주세요.");
+            // var textnode = document.createTextNode("else in " + prediction[0].className + ": " + prediction[0].probability.toFixed(2) + "and2" + prediction[1].className + ": " + prediction[1].probability.toFixed(2));
+            document.getElementById('result-container').appendChild(linebreak);
+            document.getElementById('result-container').appendChild(textnode);
+        }
+
+
+        console.log('predict end')
+
+
+        // var textnode = document.createTextNode(prediction[1].className + ": " + prediction[1].probability.toFixed(2));
+        // // var textnode = document.createTextNode("정수리도 개발중입니다.");
+        // document.getElementById('result-container2').appendChild(textnode);
+    }
+
+
+
+
+
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
+function show_image(src, alt) {
+    var img = document.createElement("img");
+    img.src = src;
+    img.alt = alt;
+    img.setAttribute('crossorigin', 'anonymous');
+    img.id = "result-img"
+    img.align = "center"
+
+    document.getElementById('result-container').appendChild(img);
+    console.log('show image end')
+    return true;
+}
+
+
+// function show_image(src, width, height, alt) {
+//     var img = document.createElement("img");
+//     img.src = src;
+//     img.width = width;
+//     img.height = height;
+//     img.alt = alt;
+//     img.id = "result-img"
+
+//     // This next line will just add it to the <body> tag
+//     // document.body.appendChild(img);
+//     document.getElementById('result-container').appendChild(img);
+// }
+
+// function deletePhoto(albumName, photoKey) {
+//     s3.deleteObject({ Key: photoKey }, function(err, data) {
+//         if (err) {
+//             return alert('There was an error deleting your photo: ', err.message);
+//         }
+//         alert('Successfully deleted photo.');
+//         viewAlbum(albumName);
+//     });
+
+
+
+// function deleteAlbum(albumName) {
+//     var albumKey = encodeURIComponent(albumName) + '/';
+//     s3.listObjects({ Prefix: albumKey }, function(err, data) {
+//         if (err) {
+//             return alert('There was an error deleting your album: ', err.message);
+//         }
+//         var objects = data.Contents.map(function(object) {
+//             return { Key: object.Key };
+//         });
+//         s3.deleteObjects({
+//             Delete: { Objects: objects, Quiet: true }
+//         }, function(err, data) {
+//             if (err) {
+//                 return alert('There was an error deleting your album: ', err.message);
+//             }
+//             alert('Successfully deleted album.');
+//             listAlbums();
+//         });
+//     });
+// }
+
+// image upload btm
+function readURL(input) {
+    if (input.files && input.files[0]) {
+
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            $('.image-upload-wrap').hide();
+
+            $('.file-upload-image').attr('src', e.target.result);
+            $('.file-upload-content').show();
+
+            $('.image-title').html(input.files[0].name);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+
+    } else {
+        removeUpload();
+    }
+}
+
+function removeUpload() {
+    $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+    $('.file-upload-content').hide();
+    $('.image-upload-wrap').show();
+}
+$('.image-upload-wrap').bind('dragover', function() {
+    $('.image-upload-wrap').addClass('image-dropping');
+});
+$('.image-upload-wrap').bind('dragleave', function() {
+    $('.image-upload-wrap').removeClass('image-dropping');
+});
+
+// $(document).ready(function() {
+//     $("#btn_r").button().on("click", function(event) {
+
+//         alert("버튼1이 눌러졌습니다.");
+
+//     });
+
+// });
+//end

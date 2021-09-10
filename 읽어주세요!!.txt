@@ -1,0 +1,15 @@
+사용하는 페이지는 "index.html" 하나이고
+
+여기서 가져오는 아이들은
+
+custom.js
+css/style.css
+
+요렇게 두개입니다!ㅎㅎ
+
+판독하기를 누르면 custom.js 268번째줄 처럼
+
+            var textnode = document.createTextNode("축하합니다. 탈모가 아닙니다.");
+            document.getElementById('result-container').appendChild(linebreak);
+
+방식으로 글자를 추가해주는데,  속도가 느린것때매 그런지 아이폰에서는 안되는것이 문제에요!!

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Call a function after completing a function
+    </title>
+</head>
+
+<body>
+    <center>
+
+        <!-- gfg variable with no value initially -->
+        <h1>GeeksforGeeks</h1>
+        <b>A Computer Science Portal for Geeks</b>
+        <br>
+        <button id="btn_r">Click</button>
+        <p></p>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js">
+        </script>
+        <script type="text/javascript">
+            $("#btn_r").click(function() {
+                console.log("Button clicked!");
+
+                // Task is to execute callbackFirst 
+                // function first and then execute 
+                // callbackSecond function. 
+                callbackFirst();
+            });
+
+            function callbackFirst() {
+                console.log("First Function start");
+                for (var i = 1; i < 10; i++) {
+                    $('p').append(i + " ");
+                }
+                console.log("First Function end");
+
+                // Execute callbackSecond() now as its 
+                // the end of callbackFirst() 
+                callbackSecond();
+            }
+
+            function callbackSecond() {
+                console.log("Second Function start");
+                $('body').css({
+                    'background-color': 'gray'
+                });
+                $('h1').css({
+                    'color': 'green'
+                });
+                console.log("Second Function end");
+            }
+        </script>
+    </center>
+</body>
+
+</html>

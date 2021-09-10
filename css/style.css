@@ -1,0 +1,483 @@
+@font-face {
+    font-family: 'BMEULJIRO';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/BMEULJIRO.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'CookieRun-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/CookieRun-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'CookieRun-Regular';
+    background-color: #fff;
+}
+
+body div {
+    font-family: 'CookieRun-Regular';
+    background-color: #fff;
+}
+
+.row {
+    text-align: center;
+}
+
+
+/* .file-upload {
+    background-color: #ffffff;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+} */
+
+.sel_loc {
+    margin-bottom: 0.01rem;
+    font-family: 'CookieRun-Regular';
+    box-sizing: border-box;
+    color: #35465d;
+    font-size: 2.25rem;
+    padding-top: 11px;
+    display: inline-block;
+}
+
+.sel_loc2 {
+    margin-bottom: 1px;
+    font-family: 'CookieRun-Regular';
+    box-sizing: border-box;
+    color: #35465d;
+    font-size: 1.5rem;
+}
+
+.def_go {
+    margin-bottom: 9px;
+    font-size: 1.5rem;
+    font-family: 'CookieRun-Regular';
+}
+
+.howtoUse {
+    width: 80%;
+    height: 80%;
+    max-height: 500px;
+    max-width: 500px;
+    /* max-width: 100%;
+    max-height: 100%; */
+    vertical-align: middle;
+}
+
+body {
+    background-color: #EFFEFB;
+}
+
+#our_services {
+    /*height: 450px;*/
+    text-align: center;
+    align-items: center;
+    color: black;
+    overflow: auto;
+    /* margin: auto; */
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    /* position: absolute; */
+    /* left: 50%; */
+}
+
+#mychoice {
+    margin: auto;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    /* border: 5px solid #FFFF00; */
+}
+
+#product1 {
+    text-align: center;
+    width: 23%;
+    height: 35%;
+    float: left;
+    margin-top: 80.0rem;
+    margin: auto;
+    font-size: 2.0rem;
+    /* border: 5px solid #FFFF00; */
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#product2 {
+    text-align: center;
+    width: 50%;
+    height: 35%;
+    float: left;
+    /* margin: auto; */
+    /* border: 5px solid #FFFF00; */
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#product3 {
+    text-align: center;
+    width: 23%;
+    height: 35%;
+    float: left;
+    margin: auto;
+    /* margin-top: 25%; */
+    margin: auto;
+    /* 1.5%; */
+    font-size: 2.0rem;
+    /* border: 5px solid #FFFF00; */
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.toggle {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    font-size: calc(5em);
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    /* min-height: 100vh; */
+    /* overflow-x: hidden; */
+    position: relative;
+    width: 2em;
+    height: 0.65em;
+    border-radius: 0.5em;
+    border: 0.015em solid #9f9f9f;
+    background-image: linear-gradient(#f2f2f2, #fff, #f2f2f2);
+    margin: 0.26em 0.15em;
+    cursor: pointer;
+    filter: drop-shadow(0.015em 0.015em 0.01em rgba(0, 0, 0, 0.3))
+}
+
+.toggle.male-female {
+    margin-top: 1rem;
+    display: inline-block;
+}
+
+.toggle-btn::after {
+    align-items: center;
+    position: absolute;
+    top: -0.17rem;
+    left: 0;
+    width: 50%;
+    font-size: 0.35em;
+    text-align: center;
+    padding-top: -5 px;
+    transition: all 500ms cubic-bezier(0.34, 0.78, 0.55, 1.4);
+}
+
+.toggle-checkbox {
+    /* position: absolute; */
+    visibility: hidden;
+}
+
+.toggle-checkbox:checked+.toggle-btn::after {
+    left: 50%;
+}
+
+
+/* Male/Female Toggle */
+
+.male-female .toggle-btn::after {
+    /* 2. STYLE.CSS 133번째 줄 (경로 변경 절대경로 -> 상대경로 ) */
+    content: url("../images/t_logo.png");
+    /* content: '👴'; */
+}
+
+.male-female .toggle-checkbox:checked+.toggle-btn::after {
+    content: url("../images/m_logo.png");
+    /* content: '👨'; */
+}
+
+sel_lo .start-btn:hover {
+    background-color: #eee;
+    border: 4px dashed #222;
+}
+
+.start-btn:active {
+    position: relative;
+    top: 1px;
+}
+
+.kakao_ad_area {
+    margin-top: 25px;
+}
+
+.myButton {
+    display: inline-block;
+    cursor: pointer;
+    color: #777;
+    font-family: 'CookieRun-Regular';
+    font-size: 4.8rem;
+    text-align: center;
+    padding: 11px 23px;
+    text-decoration: none;
+}
+
+.myButton:hover {
+    background: linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
+    background-color: #6c7c7c;
+}
+
+.myButton:active {
+    position: relative;
+    top: 1px;
+}
+
+.top_name {
+    margin-bottom: 1px;
+    font-family: 'CookieRun-Regular';
+    /* background-color: #ffffff; */
+    box-sizing: border-box;
+    color: #35465d;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    transition: all .2s ease;
+    font-size: 2.25rem;
+    text-transform: uppercas
+}
+
+.sites {
+    margin: 0;
+    margin-top: 2rem;
+    font-size: 2.0rem;
+    border: 0;
+    background-color: inherit;
+    font-family: 'CookieRun-Regular';
+}
+
+
+/* image upoload */
+
+.file-upload,
+.start-btn {
+    max-width: 100%;
+    background-color: #ffffff;
+    width: 600px;
+    margin: 1rem auto;
+    padding: 0 20px 10px 20px;
+    font-size: 2.75rem;
+}
+
+.start-btn {
+    font-size: 2.75rem !important;
+    font-family: 'BMEULJIRO'
+}
+
+.file-upload-btn {
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+    color: #fff;
+    background: #d6d6e8;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    transition: all .2s ease;
+    outline: none;
+    text-transform: uppercase;
+}
+
+.file-upload-btn:hover {
+    max-width: 100%;
+    background: #b6b6c8;
+    color: #ffffff;
+    transition: all .2s ease;
+}
+
+.file-upload-btn:active {
+    max-width: 100%;
+    border: 0;
+    transition: all .2s ease;
+}
+
+.file-upload-content {
+    max-width: 100%;
+    display: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+.image-upload-wrap {
+    max-width: 100%;
+    /* 4. 정수리, 이마 줄 아래 여백 1/4 줄이기 */
+    margin-top: 0.01rem;
+    border: 2px dashed#d6d6e8;
+    border-radius: 10px;
+    position: relative;
+    background-color: rgba(255, 255, 255, .5);
+    ;
+}
+
+.image-dropping,
+.image-upload-wrap:hover {
+    background-color: #d6d6e8;
+    border: 2px dashed #ffffff;
+}
+
+.image-title-wrap {
+    padding: 0 15px 0 15px;
+    color: #222;
+}
+
+h3.drag-text {
+    z-index: 1;
+    position: absolute;
+    top: 34%;
+    left: 21%;
+}
+
+.drag-text {
+    text-align: center;
+    background: transparent;
+    opacity: 0.3;
+    cursor: pointer;
+}
+
+.drag-text.loc_junsuri {
+    background: url('../images/upload_back.JPG') no-repeat center;
+    background-position-y: 50%;
+    transition: 2s;
+    background-size: cover;
+}
+
+.drag-text.loc_ima {
+    background: url('../images/logo_big.JPG') no-repeat center;
+    background-position-y: 35%;
+    transition: 2s;
+}
+
+.drag-text h3 {
+    font-weight: 100;
+    text-transform: uppercase;
+    color: #668;
+    padding: 60px 0;
+    opacity: 0;
+}
+
+.image-upload-text {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0%;
+    cursor: pointer;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0;
+    margin: 0;
+}
+
+.image-upload-text>span {
+    top: 45%;
+    display: block;
+    position: relative;
+}
+
+.file-upload-image {
+    max-height: 200px;
+    max-width: 200px;
+    margin: auto;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.file-upload-input {
+    cursor: pointer;
+    max-width: 100%;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    opacity: 0;
+}
+
+.remove-image {
+    width: 100%;
+    margin: 0;
+    color: #fff;
+    background: #cd4535;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    border-bottom: 4px solid #b02818;
+    transition: all .2s ease;
+    outline: none;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+}
+
+.remove-image:hover {
+    background: #c13b2a;
+    color: #ffffff;
+    transition: all .2s ease;
+    cursor: pointer;
+}
+
+.remove-image:active {
+    border: 0;
+    transition: all .2s ease;
+}
+
+
+/* until here */
+
+#loading {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    display: block;
+    opacity: 0.7;
+    background-color: #fff;
+    z-index: 99;
+    text-align: center;
+}
+
+#loading-image {
+    top: 100px;
+    left: 240px;
+    z-index: 100;
+}
+
+#result-img {
+    max-height: 350px;
+    max-width: 350px;
+    /* margin: auto; */
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    text-align: center;
+}
+
+#result-container {
+    max-width: 100%;
+    background-color: #ffffff;
+    width: 600px;
+    margin: 0 auto;
+    font-size: 2.0rem;
+    padding: 20px;
+}
+
+.btn-todo {
+    color: #fff;
+    background-color: #5bc0be;
+    border-color: #46b8ba;
+}
+
+
+/* file-upload */

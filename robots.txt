@@ -1,0 +1,3 @@
+User-agent: *
+Sitemap: https://ojingpaan.netlify.app/sitemap.xml
+Allow:/

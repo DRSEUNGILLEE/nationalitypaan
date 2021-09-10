@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CSMEYNG2D"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-8CSMEYNG2D');
+    </script>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="naver-site-verification" content="9525f8a6d2d826333739a839d7f622b5d3894079" />
+    <meta name="description" content="AI를 활용한 인공지능 오징어 판독기">
+    <meta name="keywords" content="오징어 판독기, 오징어 , 인공지능, 판독기">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="오징어 판독기">
+    <meta property="og:description" content="Google AI를 활용한 인공지능 오징어 판독기">
+    <meta property="og:image" content="https://ojingpaan.netlify.app/">
+
+
+    <link rel="canonical" href="https://ojingpaan.netlify.app/">
+
+
+    <meta name="twitter:card" content="오징어 판독기">
+    <meta name="twitter:title" content="오징어 판독기">
+    <meta name="twitter:description" content="AI를 활용한 인공지능 오징어 판독기">
+    <meta name="twitter:image" content="https://ojingpaan.netlify.app/">
+    <meta name="twitter:domain" content="오징어 판독기">
+
+
+    <title>오징어 판독기</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js">
+    </script>
+
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" type="image/png" href="images/ds-logo.png" />
+
+
+
+    <script src="https://unpkg.com/netlify-auth-providers"></script>
+
+    <script>
+        $(function() {
+            $("#login").on("click", function(e) {
+                e.preventDefault();
+                var authenticator = new netlify.default({});
+                authenticator.authenticate({
+                    provider: "github",
+                    scope: "user"
+                }, function(err, data) {
+                    if (err) {
+                        return $("#output").text("Error Authenticating with GitHub: " + err);
+                    }
+                    $("#output").text("Authenticated with GitHub. Access Token: " + data.token);
+                });
+            });
+        });
+    </script>
+
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
+    <!-- <script src="./app.js"></script> -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="custom.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+    <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+    <style>
+        div {
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+
+
+<body>
+    <div id="loading">
+        <img id="loading-image" src="images/Spinner.gif" alt="Loading..." />
+    </div>
+
+    <ins class="kakao_ad_area" style="display:none;" data-ad-unit="DAN-ptsdlpDjjs5gTthG" data-ad-width="320" data-ad-height="100"></ins>
+    <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+
+
+
+
+    <div class="row">
+        <a href="https://taalpaan.netlify.app/" class="myButton">오징어 판독기 </a>
+    </div>
+
+
+    <div p style="text-align:right" class="def_go">supported by Nerual Network</div>
+
+    <!-- <div class="mt-2 container d-flex justify-content-center ad-banner">
+
+        <ins class="kakao_ad_area" style="display:none;" data-ad-unit="DAN-1iyexm4os7nzt" data-ad-width="320" data-ad-height="100"></ins>
+
+        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+    </div> -->
+
+
+    <!-- 
+    <div class="row">
+        <div p style="text-align:center" class="sel_loc">---판독할 사진을 올려주세요---</div>
+    </div>
+    <p> </p> -->
+
+
+
+    <div class="row">
+        <div class="file-upload">
+            <button class="file-upload-btn hide" type="button" onclick="$('.file-upload-input').trigger( 'click' )">사진 올리기</button>
+
+            <div class="image-upload-wrap">
+                <input class="file-upload-input" type='file' id='tgtimg' onchange="readURL(this);" accept="image/*" />
+                <div class="drag-text loc_junsuri">
+                    <h3>&nbsp;</h3>
+                </div>
+                <h3 class="image-upload-text"><span>AI 판독을 위해 사진을 올려주세요</span></h3>
+            </div>
+            <div class="file-upload-content">
+                <img class="file-upload-image" id='originimg' src="#" alt="your image">
+                <div class="image-title-wrap">
+                    <button type="button" onclick="removeUpload()" class="remove-image">사진 다시올리기 <span
+                            class="image-title"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+      <label for="exampleFileUpload" class="button">Upload File</label>
+      <input type="file" id="exampleFileUpload" class="show-for-sr">
+      -->
+
+
+
+
+
+    <script>
+        window.onload = function() {
+
+            init().then(function() {
+                console.log("background func upload complete");
+                $('#loading').hide();
+            });
+
+
+        }
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('.image-upload-wrap').hide();
+                    $('.file-upload-image').attr('src', e.target.result);
+                    $('.file-upload-content').show();
+
+
+                };
+
+                reader.readAsDataURL(input.files[0]);
+                addPhoto();
+            } else {
+                removeUpload();
+            }
+        }
+
+        function removeUpload() {
+            $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+            $('.file-upload-content').hide();
+            $('.image-upload-wrap').show();
+        }
+        $('.image-upload-wrap').bind('dragover', function() {
+            $('.image-upload-wrap').addClass('image-dropping');
+        });
+        $('.image-upload-wrap').bind('dragleave', function() {
+            $('.image-upload-wrap').removeClass('image-dropping');
+        });
+
+        $.ajax({
+            method: "GET",
+            url: "https://9i1jhuewmj.execute-api.ap-northeast-2.amazonaws.com/test/transaction",
+            data: "jpgname=image.jpg"
+        })
+    </script>
+
+
+    <script>
+        $(document).ready(function() {
+            $(".image-upload-text").click(function() {
+                $('.file-upload-input').trigger('click');
+            })
+        })
+    </script>
+
+
+
+    <div class="row">
+        <div id="result-container" div style="text-align: center;"></div>
+
+
+        <ins class="kakao_ad_area" style="display:none;" data-ad-unit="DAN-qxll5a1y2UIW0BJK" data-ad-width="300" data-ad-height="250"></ins>
+        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+
+
+        <div>
+            <br>
+            <br>
+            <br>
+            <img src="images/howtoUse.png" align="center" alt="howtoUse" class="howtoUse">
+        </div>
+
+        <p p style="text-align:center" class="sel_loc2">
+            </br>© DR_BUSSINESS 2020. All Rights Reserved.
+            </br>DR_BUSSINESS@naver.com
+        </p>
+    </div>
+
+
+    <!-- <button type="button" class="start-btn" onclick="predict()" p style="text-align:center">Predict하기</button> -->
+
+
+
+
+
+    <script data-ad-client="ca-pub-2876410299286576" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+
+
+</body>
+
+
+
+
+
+</html>
