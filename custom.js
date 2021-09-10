@@ -236,7 +236,7 @@ function addPhoto() {
     // rstContainer2.appendChild(document.createElement("div"));
 
 
-    console.log('22')
+    // console.log('22')
         // predict();
 
 }
